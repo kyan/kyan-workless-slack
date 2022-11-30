@@ -53,8 +53,8 @@ Deno.test("FetchAndSendDataFunction runs successfully", async () => {
       },
     },
     "interactivity.interactor": {
-      "id": "U33333",
-      "secret": "NDE0NTIxNDg....",
+      id: "U33333",
+      secret: "NDE0NTIxNDg....",
     },
     "interactivity.interactor.id": "U03E94MK0",
     "interactivity.interactor.secret": "NDE0NTIxNDg....",
@@ -66,5 +66,5 @@ Deno.test("FetchAndSendDataFunction runs successfully", async () => {
     API_TOKEN: "abc123",
   };
   const result = await handler(createContext({ inputs, env }));
-  assertEquals(result, { outputs: { greeting: ":wave: message sent" } });
+  assertEquals(result, { outputs: {} });
 });

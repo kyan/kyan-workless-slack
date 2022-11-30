@@ -38,7 +38,7 @@ const formData = WorklessWithFormWorkflow.addStep(
         },
       ],
     },
-  }
+  },
 );
 
 WorklessWithFormWorkflow.addStep(FetchAndSendDataFunction, {
