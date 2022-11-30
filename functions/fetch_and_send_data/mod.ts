@@ -1,4 +1,4 @@
-import { parse } from "https://deno.land/std@0.160.0/datetime/mod.ts";
+import { parse } from "datetime";
 import { FetchAndSendDataFunction } from "./definition.ts";
 import { SlackAPI } from "deno-slack-api/mod.ts";
 import { SlackFunction } from "deno-slack-sdk/mod.ts";
@@ -49,21 +49,22 @@ export default SlackFunction(
   async ({ inputs, token, env }) => {
     console.log("Forwarding the Workless check:", inputs);
 
-    const startDateFormatted = parse(inputs.start_date, "yyyy-MM-dd")
-      .toDateString();
+    // date from slack looks like 2022-11-30
+    const date = inputs.start_date;
+    const destination = inputs.recipient || env.POST_CHANNEL;
+    const startDateFormatted = parse(date, "yyyy-MM-dd").toDateString();
     const apiUrl = env.API_URL;
     const apiToken = env.API_TOKEN;
     const client = SlackAPI(token, {});
-    const users = await fetchUsers(client, apiUrl, apiToken, inputs.start_date);
+    const users = await fetchUsers(client, apiUrl, apiToken, date);
     const blocks = blocksHeader(startDateFormatted).concat([
       ...blocksUsers(users),
       {
         type: "divider",
       },
     ]);
-
     const msgResponse = await client.chat.postMessage({
-      channel: inputs.manager,
+      channel: destination,
       blocks,
       text: `A new workless check has been generated for ${startDateFormatted}`,
     });
@@ -72,8 +73,6 @@ export default SlackFunction(
       console.log("Error during request chat.postMessage!", msgResponse.error);
     }
 
-    const greeting = `:wave: message sent`;
-
-    return { outputs: { greeting } };
-  },
+    return { outputs: {} };
+  }
 );

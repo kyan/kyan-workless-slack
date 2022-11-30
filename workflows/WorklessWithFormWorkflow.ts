@@ -1,7 +1,7 @@
 import { DefineWorkflow, Schema } from "deno-slack-sdk/mod.ts";
 import { FetchAndSendDataFunction } from "../functions/fetch_and_send_data/definition.ts";
 
-export const WhoDoesNotHaveAnyWorkWorkflow = DefineWorkflow({
+export const WorklessWithFormWorkflow = DefineWorkflow({
   callback_id: "check_workless",
   title: "Who's not nothing to do",
   description: "Checks to see who hasn't been assigned any work",
@@ -15,20 +15,19 @@ export const WhoDoesNotHaveAnyWorkWorkflow = DefineWorkflow({
   },
 });
 
-// Step 1: opening a form for a user to select a date
-const formData = WhoDoesNotHaveAnyWorkWorkflow.addStep(
+const formData = WorklessWithFormWorkflow.addStep(
   Schema.slack.functions.OpenForm,
   {
     title: "Who's got nothing to do",
-    interactivity: WhoDoesNotHaveAnyWorkWorkflow.inputs.interactivity,
+    interactivity: WorklessWithFormWorkflow.inputs.interactivity,
     submit_label: "Submit",
     description:
       "Enter a date for when you would like to check and also who you would like send the results to.",
     fields: {
-      required: ["manager", "start_date"],
+      required: ["start_date"],
       elements: [
         {
-          name: "manager",
+          name: "recipient",
           title: "Recipient",
           type: Schema.slack.types.user_id,
         },
@@ -39,13 +38,10 @@ const formData = WhoDoesNotHaveAnyWorkWorkflow.addStep(
         },
       ],
     },
-  },
+  }
 );
 
-// Step 2: send time off request details along with approve/deny buttons to manager
-WhoDoesNotHaveAnyWorkWorkflow.addStep(FetchAndSendDataFunction, {
-  interactivity: formData.outputs.interactivity,
-  employee: WhoDoesNotHaveAnyWorkWorkflow.inputs.interactivity.interactor.id,
-  manager: formData.outputs.fields.manager,
+WorklessWithFormWorkflow.addStep(FetchAndSendDataFunction, {
+  recipient: formData.outputs.fields.recipient,
   start_date: formData.outputs.fields.start_date,
 });
