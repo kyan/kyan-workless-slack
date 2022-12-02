@@ -24,12 +24,12 @@ const formData = WorklessWithFormWorkflow.addStep(
     description:
       "Enter a date for when you would like to check and also who you would like send the results to.",
     fields: {
-      required: ["start_date"],
+      required: ["start_date", "recipient"],
       elements: [
         {
           name: "recipient",
           title: "Recipient",
-          type: Schema.slack.types.user_id,
+          type: Schema.slack.types.channel_id,
         },
         {
           name: "start_date",

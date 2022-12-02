@@ -7,15 +7,15 @@ export const FetchAndSendDataFunction = DefineFunction({
   input_parameters: {
     properties: {
       recipient: {
-        type: Schema.slack.types.user_id,
-        description: "The recipient of your message",
+        type: Schema.slack.types.channel_id,
+        description: "The channel for your message",
       },
       start_date: {
         type: "slack#/types/date",
         description: "Time off start date",
       },
     },
-    required: ["start_date"],
+    required: ["start_date", "recipient"],
   },
   output_parameters: {
     properties: {},

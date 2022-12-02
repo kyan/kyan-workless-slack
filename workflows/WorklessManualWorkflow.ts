@@ -9,5 +9,6 @@ export const WorklessManualWorkflow = DefineWorkflow({
 });
 
 WorklessManualWorkflow.addStep(FetchAndSendDataFunction, {
+  recipient: "<TODO>",
   start_date: format(new Date(), "yyyy-MM-dd"),
 });

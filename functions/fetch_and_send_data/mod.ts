@@ -51,7 +51,7 @@ export default SlackFunction(
 
     // date from slack looks like 2022-11-30
     const date = inputs.start_date;
-    const destination = inputs.recipient || env.POST_CHANNEL;
+    const destination = inputs.recipient;
     const startDateFormatted = parse(date, "yyyy-MM-dd").toDateString();
     const apiUrl = env.API_URL;
     const apiToken = env.API_TOKEN;
@@ -63,14 +63,21 @@ export default SlackFunction(
         type: "divider",
       },
     ]);
-    const msgResponse = await client.chat.postMessage({
-      channel: destination,
-      blocks,
-      text: `A new workless check has been generated for ${startDateFormatted}`,
-    });
 
-    if (!msgResponse.ok) {
-      console.log("Error during request chat.postMessage!", msgResponse.error);
+    if (users.length > 0) {
+      const msgResponse = await client.chat.postMessage({
+        channel: destination,
+        blocks,
+        text:
+          `A new workless check has been generated for ${startDateFormatted}`,
+      });
+
+      if (!msgResponse.ok) {
+        console.log(
+          "Error during request chat.postMessage!",
+          msgResponse.error,
+        );
+      }
     }
 
     return { outputs: {} };

@@ -42,8 +42,7 @@ Deno.test("FetchAndSendDataFunction runs successfully", async () => {
   stub(console, "log");
 
   const inputs = {
-    employee: "U11111",
-    manager: "U22222",
+    recipient: "U22222",
     start_date: "2022-03-01",
     interactivity: {
       interactivity_pointer: "111.222.b79....",
