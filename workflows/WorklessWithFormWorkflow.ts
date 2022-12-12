@@ -1,4 +1,5 @@
 import { DefineWorkflow, Schema } from "deno-slack-sdk/mod.ts";
+import { format } from "datetime";
 import { FetchAndSendDataFunction } from "../functions/fetch_and_send_data/definition.ts";
 
 export const WorklessWithFormWorkflow = DefineWorkflow({
@@ -35,6 +36,7 @@ const formData = WorklessWithFormWorkflow.addStep(
           name: "start_date",
           title: "Start Date",
           type: "slack#/types/date",
+          default: format(new Date(), "yyyy-MM-dd"),
         },
       ],
     },

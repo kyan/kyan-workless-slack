@@ -1,4 +1,3 @@
-import { format } from "datetime";
 import { DefineWorkflow } from "deno-slack-sdk/mod.ts";
 import { FetchAndSendDataFunction } from "../functions/fetch_and_send_data/definition.ts";
 
@@ -9,6 +8,5 @@ export const WorklessManualWorkflow = DefineWorkflow({
 });
 
 WorklessManualWorkflow.addStep(FetchAndSendDataFunction, {
-  recipient: "<TODO>",
-  start_date: format(new Date(), "yyyy-MM-dd"),
+  recipient: "C04CU7S09FE",
 });

@@ -15,7 +15,7 @@ export const FetchAndSendDataFunction = DefineFunction({
         description: "Time off start date",
       },
     },
-    required: ["start_date", "recipient"],
+    required: ["recipient"],
   },
   output_parameters: {
     properties: {},
