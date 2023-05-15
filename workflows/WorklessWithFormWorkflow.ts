@@ -4,7 +4,7 @@ import { FetchAndSendDataFunction } from "../functions/fetch_and_send_data/defin
 
 export const WorklessWithFormWorkflow = DefineWorkflow({
   callback_id: "check_workless",
-  title: "Who's not nothing to do",
+  title: "Who's got nothing to do",
   description: "Checks to see who hasn't been assigned any work",
   input_parameters: {
     properties: {
